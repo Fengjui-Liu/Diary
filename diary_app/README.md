@@ -283,7 +283,7 @@ A: 確保已在 `web/index.html` 中正確配置 Firebase SDK。
 ## 📧 聯繫方式
 
 如有問題或建議，請通過以下方式聯繫：
-- Email: your-email@example.com
+- Email: 113306008@g.nccu.edu.tw
 - GitHub Issues: [專案問題頁面]
 
 ## 🙏 致謝
