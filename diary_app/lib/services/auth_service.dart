@@ -22,24 +22,32 @@ class AuthService extends ChangeNotifier {
 
   // 初始化認證狀態
   Future<void> _initAuth() async {
-    final prefs = await SharedPreferences.getInstance();
-    _hasSetPassword = prefs.containsKey('password_hash');
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      _hasSetPassword = prefs.containsKey('password_hash');
 
-    _auth.authStateChanges().listen((User? user) {
-      if (user != null) {
-        _currentUser = UserModel(
-          id: user.uid,
-          email: user.email ?? '',
-          displayName: user.displayName,
-          photoUrl: user.photoURL,
-        );
-        _isAuthenticated = true;
-      } else {
-        _currentUser = null;
-        _isAuthenticated = false;
-      }
+      // 嘗試監聽 Firebase 認證狀態（如果 Firebase 已初始化）
+      _auth.authStateChanges().listen((User? user) {
+        if (user != null) {
+          _currentUser = UserModel(
+            id: user.uid,
+            email: user.email ?? '',
+            displayName: user.displayName,
+            photoUrl: user.photoURL,
+          );
+          _isAuthenticated = true;
+        } else {
+          _currentUser = null;
+          _isAuthenticated = false;
+        }
+        notifyListeners();
+      });
+    } catch (e) {
+      debugPrint('Firebase Auth 初始化失敗，將使用本地密碼模式: $e');
+      final prefs = await SharedPreferences.getInstance();
+      _hasSetPassword = prefs.containsKey('password_hash');
       notifyListeners();
-    });
+    }
   }
 
   // 設置本地密碼（用於離線驗證）

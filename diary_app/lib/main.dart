@@ -13,10 +13,16 @@ import 'utils/theme.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 初始化Firebase
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // 初始化Firebase（可選）
+  // 如果配置不正確，應用仍然可以運行（使用本地存儲）
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    debugPrint('✅ Firebase 初始化成功');
+  } catch (e) {
+    debugPrint('⚠️  Firebase 初始化失敗（將使用本地存儲模式）: $e');
+  }
 
   runApp(const DiaryApp());
 }
