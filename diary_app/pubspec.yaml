@@ -1,0 +1,72 @@
+name: diary_app
+description: 個人日記本應用 - 支援Web、iOS和Android
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # UI & Icons
+  cupertino_icons: ^1.0.6
+  google_fonts: ^6.1.0
+  flutter_svg: ^2.0.9
+
+  # 狀態管理
+  provider: ^6.1.1
+
+  # 網路請求
+  http: ^1.1.2
+  dio: ^5.4.0
+
+  # 本地存儲
+  shared_preferences: ^2.2.2
+  sqflite: ^2.3.0
+  path_provider: ^2.1.1
+
+  # Firebase
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.16.0
+  firebase_storage: ^11.5.6
+  cloud_firestore: ^4.14.0
+
+  # 圖片處理
+  image_picker: ^1.0.7
+  cached_network_image: ^3.3.1
+
+  # PDF生成
+  pdf: ^3.10.7
+  printing: ^5.11.1
+
+  # 日期時間
+  intl: ^0.18.1
+  table_calendar: ^3.0.9
+
+  # 安全
+  crypto: ^3.0.3
+  flutter_secure_storage: ^9.0.0
+
+  # 其他工具
+  uuid: ^4.3.3
+  path: ^1.8.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/fonts/
+
+  fonts:
+    - family: NotoSansCJK
+      fonts:
+        - asset: assets/fonts/NotoSansCJKtc-Regular.otf
+          weight: 400
