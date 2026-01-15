@@ -1,5 +1,5 @@
 {
-  "buildCommand": "flutter build web --release",
+  "buildCommand": "cd diary_app && flutter build web --release",
   "outputDirectory": "diary_app/build/web",
   "installCommand": "if ! command -v flutter &> /dev/null; then git clone https://github.com/flutter/flutter.git -b stable --depth 1 /tmp/flutter && export PATH=\"$PATH:/tmp/flutter/bin\" && flutter precache --web; fi && cd diary_app && flutter pub get",
   "framework": null,
