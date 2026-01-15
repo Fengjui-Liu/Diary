@@ -1,6 +1,10 @@
 # 我的日記本 📔
 
-一個功能完整的跨平台日記應用，支援 Web、iOS 和 Android。
+一個功能完整的日記 Web 應用，使用 Flutter 開發。
+
+> 🚀 **想快速上線？** 查看 [5分鐘快速部署指南](QUICK_START_WEB.md)
+
+> 📚 **詳細部署說明？** 查看 [完整 Web 部署文檔](WEB_DEPLOYMENT.md)
 
 ## ✨ 功能特色
 
@@ -19,6 +23,33 @@
 - 🎨 **自適應主題** - 支援深色/淺色模式
 - 📱 **響應式設計** - 適配各種螢幕尺寸
 
+## 🚀 快速開始（Web 版本）
+
+### 最快部署方式 - Vercel（推薦）
+
+**只需 3 步，5 分鐘內上線：**
+
+1. **註冊 Vercel**：前往 https://vercel.com，用 GitHub 登入
+2. **導入專案**：選擇你的 `Diary` 倉庫
+3. **配置並部署**：
+   - Root Directory: `diary_app`
+   - Build Command: `flutter build web --release`
+   - Output Directory: `build/web`
+
+**完成！** 你的日記本會自動部署到 `https://your-app.vercel.app`
+
+📖 **詳細步驟**：查看 [QUICK_START_WEB.md](QUICK_START_WEB.md)
+
+### 其他部署選項
+
+- **Netlify** - 同樣簡單快速
+- **Firebase Hosting** - 與 Firebase 服務深度整合
+- **GitHub Pages** - 直接從 GitHub 倉庫部署
+
+詳見：[WEB_DEPLOYMENT.md](WEB_DEPLOYMENT.md)
+
+---
+
 ## 🛠️ 技術架構
 
 ### 前端技術
@@ -35,9 +66,11 @@
 - **備用方案**: Spring Boot REST API (可選)
 
 ### 支援平台
-- 🌐 **Web** - PWA支援，可安裝到桌面
-- 📱 **Android** - Android 5.0 (API 21) 以上
-- 🍎 **iOS** - iOS 12.0 以上
+- 🌐 **Web** - PWA支援，可安裝到桌面（✅ 主要平台）
+- 📱 **Android** - 架構已支援，可擴展（未來計劃）
+- 🍎 **iOS** - 架構已支援，可擴展（未來計劃）
+
+> 💡 **目前專注於 Web 版本**，提供最佳的瀏覽器體驗，支援手機、平板和桌面訪問。
 
 ## 📦 專案結構
 
@@ -117,56 +150,103 @@ flutter pub get
 
    這會自動生成 `lib/firebase_options.dart` 文件
 
-4. **運行應用**
+4. **運行應用（Web 版本）**
 
    ```bash
-   # Web
+   # 本地測試
    flutter run -d chrome
 
-   # Android
-   flutter run -d android
-
-   # iOS (需要 Mac)
-   flutter run -d ios
+   # 或構建生產版本
+   flutter build web --release
+   cd build/web
+   python3 -m http.server 8000
+   # 訪問 http://localhost:8000
    ```
 
-## 📱 打包部署
+## 🌐 Web 部署
 
-### Android APK
+### 方案一：Vercel（推薦 ⭐）
+
+**最簡單的方式：**
+
+1. 前往 https://vercel.com 用 GitHub 登入
+2. 導入你的 `Diary` 倉庫
+3. 配置：
+   - Root Directory: `diary_app`
+   - Build Command: `flutter build web --release`
+   - Output Directory: `build/web`
+4. 點擊 Deploy - 完成！
+
+**詳細步驟：** [QUICK_START_WEB.md](QUICK_START_WEB.md)
+
+### 方案二：Netlify
+
+```bash
+# 1. 構建專案
+flutter build web --release
+
+# 2. 在 Netlify 網站導入專案
+# 3. 配置構建設置並部署
+```
+
+### 方案三：Firebase Hosting
+
+```bash
+# 安裝 Firebase CLI
+npm install -g firebase-tools
+
+# 登入並初始化
+firebase login
+firebase init hosting
+
+# 構建並部署
+flutter build web --release
+firebase deploy --only hosting
+```
+
+### 方案四：GitHub Pages
+
+```bash
+# 構建專案
+flutter build web --release
+
+# 推送到 gh-pages 分支
+# 在 GitHub 倉庫設置中啟用 Pages
+```
+
+**完整指南：** [WEB_DEPLOYMENT.md](WEB_DEPLOYMENT.md)
+
+---
+
+## 📱 移動端 APP（可選）
+
+目前專案架構已支援 iOS 和 Android，如果未來想開發手機 APP：
+
+<details>
+<summary>點擊查看 Android 構建步驟</summary>
 
 ```bash
 # 生成 APK
 flutter build apk --release
 
-# 生成 App Bundle (推薦用於 Google Play)
+# 生成 App Bundle (Google Play 推薦)
 flutter build appbundle --release
 ```
 
-APK 位置: `build/app/outputs/flutter-apk/app-release.apk`
+需要：Google Play 開發者帳號（$25 一次性）
+</details>
 
-### iOS IPA
+<details>
+<summary>點擊查看 iOS 構建步驟</summary>
 
 ```bash
 # 需要在 Mac 上執行
 flutter build ios --release
-
-# 使用 Xcode 打開專案
 open ios/Runner.xcworkspace
 ```
 
-然後在 Xcode 中 Archive 並上傳到 App Store。
-
-### Web 部署
-
-```bash
-# 構建 Web 版本
-flutter build web --release
-
-# 部署到 Firebase Hosting
-firebase deploy --only hosting
-
-# 或部署到其他平台（Vercel, Netlify, GitHub Pages等）
-```
+需要：Mac 電腦 + Apple Developer 帳號（$99/年）
+</details>
 
 ## 🔧 配置說明
 
@@ -283,7 +363,7 @@ A: 確保已在 `web/index.html` 中正確配置 Firebase SDK。
 ## 📧 聯繫方式
 
 如有問題或建議，請通過以下方式聯繫：
-- Email: your-email@example.com
+- Email: 113306008@g.nccu.edu.tw
 - GitHub Issues: [專案問題頁面]
 
 ## 🙏 致謝
